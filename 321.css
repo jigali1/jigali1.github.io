@@ -1,0 +1,15 @@
+#box{
+	height: 850px;
+	width: 1000px;
+	background-color: blue;
+	margin: 50px;
+	border: 15px solid; 
+}
+#a {
+	position: absolute;
+	top: 160px;
+	left: 70px;
+	height: 50px;
+	width: 50px;
+	background-color: red;
+}
