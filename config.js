@@ -1,6 +1,6 @@
 const BOARD_TOP = 550;
 const BOARD_LEFT = 450;
-const STEP = 10;
+const STEP = 15;
 
 const BALL_TOP = 503;
 const BALL_LEFT = 490;

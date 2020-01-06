@@ -32,7 +32,7 @@ function showBoard(xBoard) {
 function pressKey(event) {
 	switch(event.key) {
 		case 'd' :
-			if (xBoard <= 880-STEP) xBoard+=STEP;
+			if (xBoard <= 890-STEP) xBoard+=STEP;
 			showBoard(xBoard);
 			break;
 		case 'a' :
