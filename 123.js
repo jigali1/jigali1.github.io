@@ -1,104 +1,92 @@
 let screen = document.body;
-//screen.addEventListener('click', seekmouse)
-screen.addEventListener('keydown', changeSpeed)
-var div = document.getElementById('a');
-/*div.style['top'] = "100px";
-div.style['left'] = "100px";*/
 
-const x0 = 65;
-const y0 = 65;
-const xMax = 1015;
-const yMax = 865;
+let xBoard = BOARD_LEFT;
 
-var x = x0;
-var y = y0;
-//let box = document.getElementsById('box');
+let x = BALL_LEFT;
+let y = BALL_TOP;
 
-var stepX = 10;
-var stepY = 6;
-let t = setInterval(fly, 25);
+let board = document.getElementById('board');
+board.style['top'] = BOARD_TOP + 'px';
+board.style['left'] = BOARD_LEFT + 'px';
 
+let ball = document.getElementById('ball');
+ball.style['top'] = BALL_TOP + 'px';
+ball.style['left'] = BALL_LEFT + 'px';
 
+screen.addEventListener('keydown', pressKey);
 
+var t = setInterval(moveBall, 9999999);
 
+/*var s = setInterval(speedUp, 99999999);
 
-function fly() {
-	if (x > xMax || x < x0) {
-		stepX = -stepX;
-	}
-	if (y > yMax || y < y0) {
-		stepY = -stepY;
-	} 
-	x = stepX + x;
-	y = stepY + y;
-	showDiv(x,y);
-	
-}
-	
-
-
-function showDiv(x, y) {
-	div.style['top'] = y+'px';
-	div.style['left'] = x+'px';
-
-}
-
-function changeSpeed(event) {
-	switch(event.key) {
-		case 'd' :
-			stepX+=1;
-			break;
-		case 'a' :
-			stepX-=1;
-			break;
-		case 's' :
-			stepY+=1;	
-			break;
-		case 'w' :
-			stepY-=1;	
-	}
-}
-
-
-/*function showDiv() {
-	let div = document.getElementById('a');
-	if (div.hidden) {
-		div.hidden = false;
-	} else {
-		div.hidden = true;
-	}
-}
-
-function seekmouse(event) {
-	console.log(event);
-	let div = document.getElementById('a');
-	let x = event.clientX;
-	let y = event.clientY;
-	div.style['top'] = y+"px";
-	div.style['left'] = x+"px";
-}
-
-function moveOn(event) {
-	let div = document.getElementById('a');
-	let x = div.style['left'];
-	let y = div.style['top'];
-	x = parseInt(x.match(/\d+/));
-	y = parseInt(y.match(/\d+/));
-	console.log(x);
-	switch(event.key) {
-		case 'd' :
-			x+=75;
-			break;
-		case 'a' :
-			x-=78;
-			break;
-		case 's' :
-			y+=68;	
-			break;
-		case 'w' :
-			y-=60;	
-	}
-	div.style['left'] = x + 'px';
-	div.style['top'] = y + 'px'
-
+function speedUp() {
+	ballStepX > 0 ? ballStepX+=2 : ballStepX-=2;
+	ballStepY > 0 ? ballStepY+=2 : ballStepY-=2;
 }*/
+
+
+function showBoard(xBoard) {
+	board.style['left'] = xBoard + 'px';
+}
+
+function pressKey(event) {
+	switch(event.key) {
+		case 'd' :
+			if (xBoard <= 880-STEP) xBoard+=STEP;
+			showBoard(xBoard);
+			break;
+		case 'a' :
+			if (xBoard >= STEP) xBoard-=STEP;
+			showBoard(xBoard);
+			break;
+		case ' ' :
+			t = setInterval(moveBall, 47);
+			//s = setInterval(speedUp, 1000);
+			break;
+	}
+	//console.log(xBoard);clearInterval(t);
+	//console.log(event.key);
+	
+}
+
+function restart() {
+	clearInterval(t);
+	//clearInterval(s);
+
+	board.style['top'] = BOARD_TOP + 'px';
+	board.style['left'] = BOARD_LEFT + 'px';
+
+	ball.style['top'] = BALL_TOP + 'px';
+	ball.style['left'] = BALL_LEFT + 'px';
+
+	ballStepX = -6;
+	ballStepY = 12;
+}
+
+function moveBall() {
+	if (x > X_MAX || x < 0) {
+		ballStepX = -ballStepX;
+	}
+	if ( y < -26 ) {
+		ballStepY = -ballStepY;
+	} 
+	if (y >= BOARD_TOP-56) {
+		if (x >= xBoard-24 && x <= xBoard+124) {
+			ballStepY = -ballStepY;
+		}
+		else {
+			alert('Ты проиграл! Game over!');
+			document.location.reload();
+			//restart();
+			//return;
+			//console.log(t);
+			
+		}
+	} 
+	x = ballStepX + x;
+	y = ballStepY + y;
+	ball.style['top'] = y + 'px';
+	ball.style['left'] = x + 'px';
+}
+
+
