@@ -35,10 +35,18 @@ function pressKey(event) {
 			if (xBoard <= 890-STEP) xBoard+=STEP;
 			showBoard(xBoard);
 			break;
+		case 'в' :
+			if (xBoard <= 890-STEP) xBoard+=STEP;
+			showBoard(xBoard);
+			break;	
 		case 'a' :
 			if (xBoard >= STEP) xBoard-=STEP;
 			showBoard(xBoard);
 			break;
+		case 'ф' :
+			if (xBoard >= STEP) xBoard-=STEP;
+			showBoard(xBoard);
+			break;	
 		case ' ' :
 			t = setInterval(moveBall, 47);
 			//s = setInterval(speedUp, 1000);
